@@ -1,9 +1,15 @@
-<html><body>
-<h1>test</h1>
+Javascript:
+Document.body.innerHTML="" ;
 
-<img src="" />
+function arrayBufferToBase64(buffer) {
+  var binary = '';
+  var bytes = [].slice.call(new Uint8Array(buffer));
 
-<script>
+  bytes.forEach((b) => binary += String.fromCharCode(b));
+
+  return window.btoa(binary);
+};
+
 
 var url = 'https://worldwide.espacenet.com/3.2/rest-services/images/documents/XP/055783968/formats/png/pages/1?EPO-Trace-Id=sb30vo-6tqx98' ;
 var headers = new Headers({'X-Mashape-Key': 'API_KEY'});
@@ -19,20 +25,10 @@ fetch(request, options).then((response) => {
   response.arrayBuffer().then((buffer) => {
     var base64Flag = 'data:image/jpeg;base64,';
     var imageStr = arrayBufferToBase64(buffer);
-
-    document.querySelector('img').src = base64Flag + imageStr;
+    img=document.createElement("img") ;
+    document.body.appendChild(img);
+    img.setAttribute("src", base64Flag + imageStr);
   });
 });
 
-function arrayBufferToBase64(buffer) {
-  var binary = '';
-  var bytes = [].slice.call(new Uint8Array(buffer));
 
-  bytes.forEach((b) => binary += String.fromCharCode(b));
-
-  return window.btoa(binary);
-};
-
-</script>
-
-</body></html>
